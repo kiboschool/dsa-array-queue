@@ -7,16 +7,28 @@ class ArrayQueue:
         self.max_length = max_length
 
     def enqueue(self, item):
-        pass
+        if self.is_full():
+            return False
+
+        self.rear_idx = (self.rear_idx + 1) % self.max_length
+        self.items[self.rear_idx] = item
+        self.num_items += 1
+        return True
 
     def dequeue(self):
-        pass
+        if self.is_empty():
+            return None
+
+        removed = self.items[self.front_idx]
+        self.front_idx = (self.front_idx + 1) % self.max_length
+        self.num_items -= 1
+        return removed
 
     def front(self):
-        pass
+        return self.items[self.front_idx]
 
     def is_empty(self):
-        pass
+        return self.num_items == 0
 
     def is_full(self):
-        pass
+        return self.num_items == self.max_length
